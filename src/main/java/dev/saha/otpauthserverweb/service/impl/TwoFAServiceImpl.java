@@ -111,7 +111,8 @@ public class TwoFAServiceImpl implements TwoFAService {
                 return new AuthServerValidationResponse(HttpStatus.EXPECTATION_FAILED,"Token expired",LocalDateTime.now());
             }
             else {
-                log.info("Token {} validated",request.getToken());
+                tokenRepo.delete(token);
+                log.info("Token {} validated and deleted",request.getToken());
                 return new AuthServerValidationResponse(HttpStatus.OK,"Token validated",LocalDateTime.now());
             }
         } else {
